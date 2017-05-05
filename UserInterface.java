@@ -44,26 +44,26 @@ public class UserInterface {
 			switch(option) {
 			case 1:
 				steps = 0;
-				runGameLoop();
+				GE.setPlayerGun(gunMenu());
+				//Terminates once game loop is false
+				while(!runGameLoop());
 				break;
 			default:
 				System.out.println("Invalid option!");
 				break;
 			}
 		}
-		//termintated runGameLoop when true
-		while(!runGameLoop());
 	}
 
 	private boolean runGameLoop() {
 		GE.intializeTurn();
-		GE.setPlayerGun(gunMenu());
+		//GE.setPlayerGun(gunMenu());
 		
 		gameEncounterVillain();
 				
-		if(steps>=10 || GE.getPlayerHP() <= 0){
+		if(steps >= 10 || GE.getPlayerHP() <= 0){
 			return true;
-		 }
+		}
 
 		return false;
 	}
@@ -96,7 +96,6 @@ public class UserInterface {
 			//returns false
 			//return fightOver;
 			return false;
-		
 		}else{
 			increment();
 			System.out.println("You are "+ (10 - getSteps())+ " steps away!");
@@ -131,7 +130,8 @@ public class UserInterface {
 	}
 
 	private GUN_TYPE gunMenu() {
-		GUN_TYPE gunType = GUN_TYPE.PISTOL;
+		//GUN_TYPE gunType = GUN_TYPE.PISTOL;
+		GUN_TYPE gunType = null;
 		System.out.println("Chooset your type of weapon:");
 		System.out.println("\t1. Rifle");
 		System.out.println("\t2. Pistol");
