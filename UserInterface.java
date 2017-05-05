@@ -22,11 +22,10 @@ public class UserInterface {
 	public int getSteps() {
 		return steps;
 	}
-	public int increaseStep(){
-		 steps++;
-		 return steps;
+	public void increment(){
+		steps++;
 	}
-		 
+			 
 	public int decreaseStep(){
 			 steps--;
 			 return steps;
@@ -38,12 +37,13 @@ public class UserInterface {
 	
 	
 	public void startGame() {
-		GE.setPlayerGun(gunMenu());
+		
 		int option = 0;
 		
 		while((option = getUserMenuOption()) != 2) {
 			switch(option) {
 			case 1:
+				steps = 0;
 				runGameLoop();
 				break;
 			default:
@@ -51,61 +51,56 @@ public class UserInterface {
 				break;
 			}
 		}
+		//termintated runGameLoop when true
 		while(!runGameLoop());
 	}
 
 	private boolean runGameLoop() {
 		GE.intializeTurn();
-		while(!gameEncounterVillain());
-		boolean status= GE.tryEscape();
+		GE.setPlayerGun(gunMenu());
 		
-		if(status ==true ){
-			decreaseStep();	
-		}
-		else if(status== false) {
-			GE.fight();	
-			increaseStep();
-		}
-		else if(steps<11){
-				 return true;
-		 }
-		
-		else{
+		gameEncounterVillain();
+				
+		if(steps>=10 || GE.getPlayerHP() <= 0){
 			return true;
-		}
+		 }
+
 		return false;
-		
 	}
 
 	private boolean gameEncounterVillain() {
 		Random rn= new Random();
 		int chance= rn.nextInt(100);
 		if(chance <= 15){
-		String enemyGun = getEnemyGunName();
-		System.out.println("An enemy with a " + enemyGun  + " spawned!");
-		System.out.println("You can either:");
-		System.out.println("\t1. Fight");
-		System.out.println("\t2. Try to escape");
-		int choice = userIn.nextInt();
-			if(choice==2){
+			String enemyGun = getEnemyGunName();
+			System.out.println("An enemy with a " + enemyGun  + " spawned!");
+			System.out.println("You can either:");
+			System.out.println("\t1. Fight");
+			System.out.println("\t2. Try to escape");
+			int choice = userIn.nextInt();
+			if(choice ==1){
+				//run fight until someone dies
+				while(!GE.fight());
+			}else if(choice==2){
 				if (GE.tryEscape()) {
-				decreaseStep();
-				return true;
+					decreaseStep();
+					return true;
+				}
 			}
-		}
-		boolean fightOver = GE.fight();
+			
+			//boolean fightOver = GE.fight();
 		
-		System.out.println("Your current health is " + GE.getPlayerHP());
-		System.out.println("The villain's health is " + GE.getEnemyHP());
+			System.out.println("Your current health is " + GE.getPlayerHP());
+			System.out.println("The villain's health is " + GE.getEnemyHP());
 		
-		//returns false
-		return fightOver;
+			//returns false
+			//return fightOver;
+			return false;
 		
-		}
-		else{
-			increaseStep();
-			System.out.println("You are "+ increaseStep()+ " steps away!");
-			runGameLoop();
+		}else{
+			increment();
+			System.out.println("You are "+ (10 - getSteps())+ " steps away!");
+			//runGameLoop();
 			return true;
 		}
 	}

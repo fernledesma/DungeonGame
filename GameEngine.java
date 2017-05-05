@@ -12,6 +12,7 @@ public class GameEngine{
 	private ActiveAgent player;
 	
 	private ActiveAgent villain;
+	
 	public void intializeTurn() {
 		Gun gun=null;
 		villain = new ActiveAgent(Character_Type.Villain, gun);
@@ -28,10 +29,11 @@ public class GameEngine{
 		 return true;
 		}
 		else {
-			fight();
+			while(!fight());
 			return false;
 		}
 	}
+	
 	public int getEnemyHP() {
 		return villain.getHp();
 	}
@@ -40,10 +42,12 @@ public class GameEngine{
 	public int getPlayerHP() {
 		return player.getHp();
 	}
+	
 	public boolean fight() {
 		// TODO Auto-generated method stub
 		player.shoot(villain);
 		villain.shoot(player);
+		//Checks if someone dies
 		return (player.getHp() <= 0|| villain.getHp() <= 0);
 	}
 
