@@ -110,8 +110,8 @@ public class UserInterface {
 	}
 
 	private String getEnemyGunName() {
-		/*String gunName = "";
-		GUN_TYPE gunType = GE.getVillainGun() ;
+		String gunName = "";
+		GUN_TYPE gunType= GE.getVillain().playerGunType(GE.getVillain().getGun());
 		
 		switch(gunType) {
 		case PISTOL:
@@ -125,25 +125,35 @@ public class UserInterface {
 			break;
 		}
 		
-		return gunName;*/
-		return "Fake";
+		return gunName;
 	}
 
 	public GUN_TYPE getUserGunType() {
+		
 		GUN_TYPE guntype = gunMenu();
 		return guntype;
 	}
-
+	
 	private GUN_TYPE gunMenu() {
-		//GUN_TYPE gunType = GUN_TYPE.PISTOL;
+		//Initializes the gunType variable so it can later be assigned to user's choice. 
 		GUN_TYPE gunType = null;
+		
+		/*
+		 * Prints a selection of weapon choices for the user.
+		 */
 		System.out.println("Chooset your type of weapon:");
 		System.out.println("\t1. Rifle");
 		System.out.println("\t2. Pistol");
 		System.out.println("\t3. Shotgun");
+		/*
+		 * Assigns user choice, through an integer, to the variable choice
+		 */
 		int choice = userIn.nextInt();
 		userIn.nextLine();
 		
+		/*
+		 * The variable choice is used to bridge the choice of the user with the actual gun type defined in the gun class. 
+		 */
 		switch(choice) {
 		case 1:
 			gunType= GUN_TYPE.RIFLE;
@@ -161,13 +171,21 @@ public class UserInterface {
 		
 		return gunType;
 	}
-
+	
 	private int getUserMenuOption() {
 		int option;
+		/*
+		 * Introduces the player to the game and displays the main menu of the game.
+		 */
 		System.out.println("Welcome to the Dungeon of Terror. You are ten steps away from the exit. Escape if you dare!");
 		System.out.println("\nSelect from the following options:");
 		System.out.println("\t1. New Game");
 		System.out.println("\t2. Quit");
+		
+		/*
+		 * Assigns user's choice, through an integer, to the variable option. 
+		 * Option is returned so it can be used in the StartGame method.
+		 */
 		option = userIn.nextInt();
 		userIn.nextLine();
 		return option;

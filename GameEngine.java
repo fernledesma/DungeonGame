@@ -44,10 +44,19 @@ public class GameEngine{
 		return player.getHp();
 	}
 	
+	public ActiveAgent getPlayer(){
+		return player;
+	}
+	
+	public ActiveAgent getVillain(){
+		return villain;
+	}
+	
 	public boolean fight() {
 		// TODO Auto-generated method stub
 		player.shoot(villain);
 		villain.shoot(player);
+		System.out.println("player.get");
 		//Checks if someone dies
 		if(villain.getHp() <=0 && player.getHp() > 0)
 			new ItemDrops(player, player.getGun());
