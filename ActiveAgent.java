@@ -65,6 +65,9 @@ public class ActiveAgent {
 	public int getHp() {
 		return hp;
 	}
+	public Gun getGun(){
+		return activeGun;
+	}
 	public Character_Type getPlayerCharacter(){
 		return Character_Type.Player ;
 	}

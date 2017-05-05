@@ -57,11 +57,16 @@ public class UserInterface {
 
 	private boolean runGameLoop() {
 		GE.intializeTurn();
-		//GE.setPlayerGun(gunMenu());
 		
 		gameEncounterVillain();
-				
-		if(steps >= 10 || GE.getPlayerHP() <= 0){
+		
+		if(steps >= 10){
+			System.out.println("YOU WIN!!!");
+			return true;
+		}
+		
+		if(GE.getPlayerHP() <= 0){
+			System.out.println("You DIED.");
 			return true;
 		}
 

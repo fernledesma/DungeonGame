@@ -7,6 +7,7 @@ import edu.cpp.cs.cs141.projectTwo.ActiveAgent.Character_Type;
 import edu.cpp.cs.cs141.projectTwo.Gun.GUN_TYPE;
 import edu.cpp.cs.cs141.projectTwo.Gun;
 import edu.cpp.cs.cs141.projectTwo.UserInterface;
+import edu.cpp.cs.cs141.projectTwo.ItemDrops;
 public class GameEngine{
 	
 	private ActiveAgent player;
@@ -48,6 +49,9 @@ public class GameEngine{
 		player.shoot(villain);
 		villain.shoot(player);
 		//Checks if someone dies
+		if(villain.getHp() <=0 && player.getHp() > 0)
+			new ItemDrops(player, player.getGun());
+			
 		return (player.getHp() <= 0|| villain.getHp() <= 0);
 	}
 
