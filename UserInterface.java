@@ -1,3 +1,14 @@
+/**
+ * CS 141: Intro to Programming and Problem Solving
+ * Professor: Edwin Rodr&iacute;guez
+ *
+ * Programming Assignment 2
+ *
+ * <Escape the dungeon game>
+ *
+ *	Jose Fernando Ledesma 
+ */
+
 package edu.cpp.cs.cs141.projectTwo;
 
 import java.util.Random;
@@ -12,7 +23,7 @@ public class UserInterface {
 	private int maxSteps=10;
 	private Scanner userIn;
 	private GameEngine GE;
-	
+	//Method creates objects from the Scanner and GameEngine class. 
 	public UserInterface() {
 		userIn= new Scanner(System.in);
 		GE= new GameEngine();
@@ -39,7 +50,7 @@ public class UserInterface {
 	public void startGame() {
 		
 		int option = 0;
-		
+		//Begins the game and prints the main menu in which the user makes the choice of continuing.
 		while((option = getUserMenuOption()) != 2) {
 			switch(option) {
 			case 1:
@@ -56,10 +67,14 @@ public class UserInterface {
 	}
 
 	private boolean runGameLoop() {
+		//Creates the villain
 		GE.intializeTurn();
-		
+		//Calculates if the player encounters a villain every time they take a step.
 		gameEncounterVillain();
 		
+		/*
+		 * Calculates if the player wins by reaching the end of the tunnel or dies before reaching the end.
+		 */
 		if(steps >= 10){
 			System.out.println("YOU WIN!!!");
 			return true;
@@ -76,18 +91,36 @@ public class UserInterface {
 	private boolean gameEncounterVillain() {
 		Random rn= new Random();
 		int chance= rn.nextInt(100);
+		/*
+		 * Within the if statement, it is assumed that the player has a 15 percent chance of running into an enemy.
+		 */
 		if(chance <= 15){
+			/*
+			 * Communicates to the user that they ran into a villain and presents the user with a choice. 
+			 */
 			String enemyGun = getEnemyGunName();
-			System.out.println("An enemy with a " + enemyGun  + " spawned!");
+			System.out.println("A villain with a " + enemyGun  + " spawned!");
 			System.out.println("You can either:");
 			System.out.println("\t1. Fight");
 			System.out.println("\t2. Try to escape");
+			//The user's choice is stored into the variable choice, through an integer, and will be used to calculate a scenario for the user.  
 			int choice = userIn.nextInt();
 			if(choice ==1){
-				//run fight until someone dies
+				/*
+				 * It will continue to fight(run) until either person dies.
+				 * If villain dies, the player continues on with the game.
+				 * If player dies, the game will end. 
+				 */
 				while(!GE.fight());
 			}else if(choice==2){
+				/*
+				 * The if statement calls the tryEscape method and if it is true, the player escaped. 
+				 * Within the method, if the player can not escape he is forced to fight the villain and it returns false, ignoring the if statement. 
+				 */
 				if (GE.tryEscape()) {
+					/*
+					 *Decrease step since player managed to escape villain;
+					 */
 					decreaseStep();
 					return true;
 				}

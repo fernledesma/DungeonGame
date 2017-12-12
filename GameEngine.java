@@ -1,4 +1,4 @@
-package edu.cpp.cs.cs141.projectTwo;
+//package edu.cpp.cs.cs141.projectTwo;
 
 import java.util.Random;
 
@@ -53,14 +53,21 @@ public class GameEngine{
 	}
 	
 	public boolean fight() {
-		// TODO Auto-generated method stub
+		/*
+		 * Both player and villain shoot at each other at the exact same time.
+		 * Sometimes the player get's shot and sometimes the villain gets shot depending on the accuracy of the gun.
+		 */
 		player.shoot(villain);
 		villain.shoot(player);
-		System.out.println("player.get");
-		//Checks if someone dies
-		if(villain.getHp() <=0 && player.getHp() > 0)
+		/*
+		 * If statement checks if villain died and if player is still alive.
+		 * if the statement is true it creates a new ItemDrops instance. 
+		 */
+		if(villain.getHp() <=0 && player.getHp() > player.getClass().0)
 			new ItemDrops(player, player.getGun());
-			
+		/*
+		 *
+		 */
 		return (player.getHp() <= 0|| villain.getHp() <= 0);
 	}
 
